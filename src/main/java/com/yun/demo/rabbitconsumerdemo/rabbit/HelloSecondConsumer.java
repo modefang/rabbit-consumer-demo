@@ -10,7 +10,7 @@ public class HelloSecondConsumer {
 
     @RabbitListener(queues = "hello")
     public void hello(String message) {
-        System.out.println("HelloSecondConsumer: " + message);
+        System.out.println("#2 HelloSecondConsumer: " + message);
     }
 
 }
