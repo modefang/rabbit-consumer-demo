@@ -8,7 +8,7 @@ public class HelloFirstConsumer {
 
     @RabbitListener(queues = "hello")
     public void hello(String message) {
-        System.out.println(message);
+        System.out.println("HelloFirstConsumer: " + message);
     }
 
 }
