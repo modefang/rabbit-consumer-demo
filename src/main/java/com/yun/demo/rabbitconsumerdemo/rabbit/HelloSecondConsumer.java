@@ -12,4 +12,5 @@ public class HelloSecondConsumer {
     public void hello(String message) {
         System.out.println("HelloSecondConsumer: " + message);
     }
+
 }

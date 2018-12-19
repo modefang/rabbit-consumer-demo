@@ -12,4 +12,5 @@ public class HelloThirdConsumer {
     public void hello(String message) {
         System.out.println("HelloThirdConsumer: " + message);
     }
+
 }
