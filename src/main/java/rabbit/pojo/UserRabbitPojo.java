@@ -1,11 +1,11 @@
-package com.yun.demo.rabbitconsumerdemo.pojo;
+package rabbit.pojo;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class User implements Serializable {
+public class UserRabbitPojo implements Serializable {
 
     private String id;
 
