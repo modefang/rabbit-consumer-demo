@@ -11,7 +11,7 @@ public class HelloFirstConsumer {
 
     @RabbitListener(queues = "hello")
     public void hello(String message) {
-        System.out.println(this.MESSAGE_TITLE + message);
+        GlobalConsumer.hello(message, this.MESSAGE_TITLE);
     }
 
     @RabbitListener(queues = "object")
