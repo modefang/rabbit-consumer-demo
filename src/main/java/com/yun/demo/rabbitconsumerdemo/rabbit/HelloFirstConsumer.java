@@ -26,6 +26,12 @@ public class HelloFirstConsumer {
         globalConsumer.convertAndSend("/topic/receiveObject", message);
     }
 
+    @RabbitListener(queues = "manyToMany")
+    public void manyToMany(String message) {
+        message = this.MESSAGE_TITLE + message;
+        globalConsumer.convertAndSend("/topic/receiveManyToMany", message);
+    }
+
     @RabbitListener(queues = "topic.message")
     public void topicMessage(String message) {
         message = this.MESSAGE_TITLE + message + " The receiver is topic.message.";
@@ -54,6 +60,12 @@ public class HelloFirstConsumer {
     public void fanoutC(String message) {
         message = this.MESSAGE_TITLE + message + " The receiver is fanout.C.";
         globalConsumer.convertAndSend("/topic/receiveFanout", message);
+    }
+
+    @RabbitListener(queues = "topic.callback.message")
+    public void topicCallback(String message) {
+        message = this.MESSAGE_TITLE + message + " The receiver is topic.callback.message.";
+        globalConsumer.convertAndSend("/topic/receiveCallback", message);
     }
 
 }

@@ -26,4 +26,10 @@ public class HelloSecondConsumer {
         globalConsumer.convertAndSend("/topic/receiveObject", message);
     }
 
+    @RabbitListener(queues = "manyToMany")
+    public void manyToMany(String message) {
+        message = this.MESSAGE_TITLE + message;
+        globalConsumer.convertAndSend("/topic/receiveManyToMany", message);
+    }
+
 }
