@@ -5,43 +5,25 @@ import rabbit.pojo.UserRabbitPojo;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 @Component
 public class HelloSecondConsumer {
     private final String MESSAGE_TITLE = "#2 HelloSecondConsumer: ";
 
+    @Resource
+    private GlobalConsumer globalConsumer;
+
     @RabbitListener(queues = "hello")
     public void hello(String message) {
-        GlobalConsumer.hello(message, this.MESSAGE_TITLE);
+        message = this.MESSAGE_TITLE + message;
+        globalConsumer.convertAndSend("/topic/receiveHello", message);
     }
 
     @RabbitListener(queues = "object")
     public void object(UserRabbitPojo user) {
-        System.out.println(this.MESSAGE_TITLE + user.getName() + " " + JsonUtil.objectToJson(user));
+        String message = this.MESSAGE_TITLE + user.getName() + " " + JsonUtil.objectToJson(user);
+        globalConsumer.convertAndSend("/topic/receiveObject", message);
     }
-
-//    @RabbitListener(queues = "topic.message")
-//    public void topicMessage(String message) {
-//        System.out.println(this.MESSAGE_TITLE + message + " The receiver is topic.message.");
-//    }
-//
-//    @RabbitListener(queues = "topic.messages")
-//    public void topicMessages(String message) {
-//        System.out.println(this.MESSAGE_TITLE + message + " The receiver is topic.messages.");
-//    }
-//
-//    @RabbitListener(queues = "fanout.A")
-//    public void fanoutA(String message) {
-//        System.out.println(this.MESSAGE_TITLE + message + " The receiver is fanout.A.");
-//    }
-//
-//    @RabbitListener(queues = "fanout.B")
-//    public void fanoutB(String message) {
-//        System.out.println(this.MESSAGE_TITLE + message + " The receiver is fanout.B.");
-//    }
-//
-//    @RabbitListener(queues = "fanout.C")
-//    public void fanoutC(String message) {
-//        System.out.println(this.MESSAGE_TITLE + message + " The receiver is fanout.C.");
-//    }
 
 }
